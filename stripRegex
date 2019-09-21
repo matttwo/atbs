@@ -1,0 +1,31 @@
+import re
+
+def strip(chars, string):
+    #remove whitespace if input is empty
+    if chars == "":
+        preSpace = re.compile(r'^\s+')
+        endSpace = re.compile(r'\s+$')
+        string = preSpace.sub('', string)
+        string = endSpace.sub('', string)
+    else:
+        #iterate from beginning, removing characters
+        for c in string:
+            currentRegex = re.compile(r''+c)
+            if currentRegex.search(chars)==None:
+                break
+            else:
+                string = string[1:]
+        #iterate from end
+        for c in string[::-1]:
+            currentRegex = re.compile(r''+c)
+            if currentRegex.search(chars)==None:
+                break
+            else:
+                string = string[0:len(string)-1]
+    return string
+
+print(strip("a","123456aabacccdeada654321"))
+print(strip("c","ccc543c21c"))
+print(strip("def","fedcshouldbeherecDdf"))
+print(strip("","   a b  "))
+
